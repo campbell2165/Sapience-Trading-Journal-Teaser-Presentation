@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Journal AI - Where Trading Psychology Meets Artificial Intelligence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0e1b;
+            --bg-section: #0f1425;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a9c9;
+            --accent-blue: #2563eb;
+            --accent-cyan: #06b6d4;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --gradient-1: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+            --gradient-2: linear-gradient(135deg, #8b5cf6 0%, #2563eb 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-blue);
+            border-radius: 5px;
+        }
+
+        /* Navigation dots */
+        .nav-dots {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: var(--accent-cyan);
+            transform: scale(1.5);
+        }
+
+        /* Section styles */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-section) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 30px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Problem Section */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .problem-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+
+        .problem-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 30px;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-cyan);
+        }
+
+        /* Feature sections */
+        .feature-section {
+            background: var(--bg-section);
+        }
+
+        .feature-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .feature-text h2 {
+            margin-bottom: 30px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .feature-list li {
+            padding: 15px 0;
+            padding-left: 40px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .feature-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* AI Export Section */
+        .ai-section {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-section) 100%);
+            position: relative;
+        }
+
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .ai-card {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .ai-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .ai-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 120px 20px;
+            background: var(--bg-section);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 50px;
+            background: var(--gradient-1);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(37, 99, 235, 0.5);
+        }
+
+        .opportunity-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+        .opportunity-item {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .opportunity-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--accent-cyan);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-dots {
+                display: none;
+            }
+
+            .feature-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .feature-text {
+                order: 2;
+            }
+
+            .feature-image {
+                order: 1;
+            }
+
+            .ai-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .opportunity-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Patent badge */
+        .patent-badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--accent-green);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--accent-green);
+            margin-top: 20px;
+        }
+
+        /* Image container styles */
+        .workflow-image {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Dots -->
+    <div class="nav-dots">
+        <div class="nav-dot active" onclick="scrollToSection(0)"></div>
+        <div class="nav-dot" onclick="scrollToSection(1)"></div>
+        <div class="nav-dot" onclick="scrollToSection(2)"></div>
+        <div class="nav-dot" onclick="scrollToSection(3)"></div>
+        <div class="nav-dot" onclick="scrollToSection(4)"></div>
+        <div class="nav-dot" onclick="scrollToSection(5)"></div>
+        <div class="nav-dot" onclick="scrollToSection(6)"></div>
+        <div class="nav-dot" onclick="scrollToSection(7)"></div>
+        <div class="nav-dot" onclick="scrollToSection(8)"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="section hero" id="section-0">
+        <div class="container">
+            <div class="hero-content">
+                <h1>The First AI-Native Trading Journal</h1>
+                <p class="subtitle">Where Trading Psychology Meets Artificial Intelligence</p>
+                <div class="patent-badge">🛡️ Patent Pending • July 2025</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section" id="section-1">
+        <div class="container">
+            <h2>Current Trading Journals Are Data Graveyards</h2>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">⏰</div>
+                    <h3>Too Complex</h3>
+                    <p>Existing solutions interrupt your trading flow with cumbersome interfaces and endless forms</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🤖</div>
+                    <h3>No AI Integration</h3>
+                    <p>Data sits idle with no easy way to extract actionable insights through modern AI analysis</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🧠</div>
+                    <h3>Missing Psychology</h3>
+                    <p>They track trades but ignore the emotional and physical factors that drive performance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="section feature-section" id="section-2">
+        <div class="container">
+            <div class="feature-content">
+                <div class="feature-text">
+                    <h2>What If Your Journal Could...</h2>
+                    <ul class="feature-list">
+                        <li>Work seamlessly with your trading flow - not against it</li>
+                        <li>Capture your complete performance picture including emotions & health</li>
+                        <li>Transform raw data into AI-powered insights with one click</li>
+                        <li>Run anywhere, no installation, complete privacy</li>
+                    </ul>
+                </div>
+                <div class="feature-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%230f1425'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' fill='%23a0a9c9' font-family='Arial' font-size='20'%3E[Image Here]%3C/text%3E%3C/svg%3E" alt="Trading Journal Dashboard">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process-Driven Design -->
+    <section class="section" id="section-3">
+        <div class="container">
+            <h2>Built for How Day Traders Actually Work</h2>
+            <div class="workflow-image">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='200' viewBox='0 0 1200 200'%3E%3Crect width='1200' height='200' fill='transparent'/%3E%3C!-- Pre-Market --%3E%3Crect x='50' y='50' width='300' height='100' rx='10' fill='%232563eb' /%3E%3Ctext x='200' y='105' text-anchor='middle' fill='white' font-family='Arial' font-size='18' font-weight='bold'%3EPre-Market Prep%3C/text%3E%3C!-- Arrow --%3E%3Cpath d='M 350 100 L 450 100' stroke='%23a0a9c9' stroke-width='3' marker-end='url(%23arrowhead)'/%3E%3C!-- Live Trading --%3E%3Crect x='450' y='50' width='300' height='100' rx='10' fill='%2306b6d4' /%3E%3Ctext x='600' y='105' text-anchor='middle' fill='white' font-family='Arial' font-size='18' font-weight='bold'%3ELive Trading%3C/text%3E%3C!-- Arrow --%3E%3Cpath d='M 750 100 L 850 100' stroke='%23a0a9c9' stroke-width='3' marker-end='url(%23arrowhead)'/%3E%3C!-- Post-Session --%3E%3Crect x='850' y='50' width='300' height='100' rx='10' fill='%238b5cf6' /%3E%3Ctext x='1000' y='105' text-anchor='middle' fill='white' font-family='Arial' font-size='18' font-weight='bold'%3EPost-Session Review%3C/text%3E%3Cdefs%3E%3Cmarker id='arrowhead' markerWidth='10' markerHeight='7' refX='10' refY='3.5' orient='auto'%3E%3Cpolygon points='0 0, 10 3.5, 0 7' fill='%23a0a9c9' /%3E%3C/marker%3E%3C/defs%3E%3C/svg%3E" alt="Trading Workflow">
+            </div>
+            <div class="problem-grid" style="margin-top: 60px;">
+                <div class="problem-card">
+                    <h3>Pre-Market</h3>
+                    <p>Customizable checklists, health metrics, economic calendar - everything to prepare for success</p>
+                </div>
+                <div class="problem-card">
+                    <h3>Live Trading</h3>
+                    <p>Minimal interface, quick notes, emotional tracking - capture what matters without leaving your charts</p>
+                </div>
+                <div class="problem-card">
+                    <h3>Post-Session</h3>
+                    <p>One-click broker import, automated P&L, reflection prompts - turn experience into improvement</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emotional Journey -->
+    <section class="section feature-section" id="section-4">
+        <div class="container">
+            <div class="feature-content">
+                <div class="feature-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%230f1425'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' fill='%23a0a9c9' font-family='Arial' font-size='20'%3E[Image Here]%3C/text%3E%3C/svg%3E" alt="Emotional Journey Tracking">
+                </div>
+                <div class="feature-text">
+                    <h2>Track Your Complete Emotional Journey</h2>
+                    <p style="font-size: 1.2rem; margin-bottom: 30px;">Finally understand the psychology behind your P&L</p>
+                    <ul class="feature-list">
+                        <li>Pre-trade emotional state with timestamp</li>
+                        <li>Unlimited during-trade observations</li>
+                        <li>Post-trade reflection and lessons</li>
+                        <li>AI correlates emotions with performance patterns</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Export Section -->
+    <section class="section ai-section" id="section-5">
+        <div class="container">
+            <h2 style="text-align: center;">From Journal to AI Insights in Seconds</h2>
+            <div class="ai-grid">
+                <div class="ai-card">
+                    <span class="ai-icon">📊</span>
+                    <h3>One-Click Export</h3>
+                    <p>Structured markdown with embedded images, perfectly formatted for AI analysis</p>
+                </div>
+                <div class="ai-card">
+                    <span class="ai-icon">🎯</span>
+                    <h3>Custom Prompts</h3>
+                    <p>Tailor your AI analysis with customizable questions focused on your improvement areas</p>
+                </div>
+                <div class="ai-card">
+                    <span class="ai-icon">🔍</span>
+                    <h3>Pattern Discovery</h3>
+                    <p>Uncover hidden correlations between emotions, health, and trading performance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Complete Picture Section -->
+    <section class="section" id="section-6">
+        <div class="container">
+            <h2 style="text-align: center;">The Complete Performance Picture</h2>
+            <p style="text-align: center; font-size: 1.3rem; margin-bottom: 50px; color: var(--text-secondary);">
+                Discover patterns you never knew existed
+            </p>
+            <div class="opportunity-grid">
+                <div class="opportunity-item">
+                    <div class="stat">100%</div>
+                    <p>of trading data captured including emotions, health, and environment</p>
+                </div>
+                <div class="opportunity-item">
+                    <div class="stat">1-Click</div>
+                    <p>broker integration with intelligent trade matching</p>
+                </div>
+                <div class="opportunity-item">
+                    <div class="stat">0</div>
+                    <p>servers, installations, or privacy concerns - runs 100% locally</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Opportunity Section -->
+    <section class="section feature-section" id="section-7">
+        <div class="container">
+            <h2 style="text-align: center;">The Opportunity</h2>
+            <div class="opportunity-grid" style="margin-top: 50px;">
+                <div class="opportunity-item">
+                    <div class="opportunity-icon">🚀</div>
+                    <h3>Built by a Trader</h3>
+                    <p>Currently using it daily in my own trading with proven results</p>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-icon">🛡️</div>
+                    <h3>Protected Innovation</h3>
+                    <p>Provisional patent filed July 2025 securing the unique approach</p>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-icon">🌟</div>
+                    <h3>Multiple Paths</h3>
+                    <p>Community adoption, partnerships, or standalone product</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section" id="section-8">
+        <div class="container">
+            <h2>Let's Explore Where This Could Go</h2>
+            <p style="font-size: 1.3rem; margin-bottom: 30px;">Would love your thoughts on the best path forward</p>
+            <a href="#" class="cta-button" onclick="alert('Contact: campbell@example.com'); return false;">Live Demo Ready</a>
+            <p style="margin-top: 50px; color: var(--text-secondary);">Campbell Mayer • Trading Journal AI • 2025</p>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll to sections
+        function scrollToSection(index) {
+            const sections = document.querySelectorAll('.section');
+            sections[index].scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Update navigation dots on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const dots = document.querySelectorAll('.nav-dot');
+            
+            let current = 0;
+            sections.forEach((section, index) => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                    current = index;
+                }
+            });
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === current);
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.problem-card, .ai-card, .feature-content').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
