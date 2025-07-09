@@ -91,6 +91,25 @@
             margin: 0 auto;
         }
 
+
+        .product-name {
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .product-tagline {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            animation: fadeInUp 1s ease-out 0.1s both;
+        }
+        
         /* Hero Section */
         .hero {
             background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-section) 100%);
@@ -571,8 +590,9 @@
     <section class="section hero" id="section-0">
         <div class="container">
             <div class="hero-content">
-                <h1>The First AI-Focused Trading Journal</h1>
-                <p class="subtitle">Transforming Data into Actual Results</p>
+                <h1 class="product-name">Sapient Trading Journal</h1>
+                <h2 class="product-tagline">The First AI-Focused Trading Journal</h2>
+                <p class="subtitle">Transforming Your Data into Actual Results</p>
                 <div class="patent-badge">🛡️ Patent Pending • July 2025</div>
             </div>
         </div>
