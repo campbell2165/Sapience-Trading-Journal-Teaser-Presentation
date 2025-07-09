@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partnership Opportunities - Sapient Trading Journal</title>
+    <!-- 
+    INTEGRATION NOTES:
+    1. This slide can be added to your existing pitch deck
+    2. Update the openContactPopup() function to match your popup system
+    3. The button will use your existing contact popup functionality
+    4. Style adjustments may be needed to match your pitch deck theme
+    -->
+    <style>
+        /* This slide/section can be added to your existing pitch deck */
+        
+        .partnership-slide {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
+            color: white;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background effect */
+        .partnership-slide::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 123, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(180deg); }
+        }
+
+        .partnership-content {
+            max-width: 800px;
+            text-align: center;
+            z-index: 1;
+            position: relative;
+        }
+
+        .partnership-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00d4ff, #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .partnership-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .integration-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .integration-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .integration-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(0, 153, 255, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 153, 255, 0.3);
+        }
+
+        .integration-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .integration-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #00d4ff;
+        }
+
+        .integration-time {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .cta-section {
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(0, 153, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 153, 255, 0.3);
+        }
+
+        .cta-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .contact-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #00d4ff, #0099ff);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 153, 255, 0.4);
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .contact-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 153, 255, 0.6);
+        }
+
+        .patent-notice {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 193, 7, 0.9);
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #0f1425 0%, #1a1f3a 100%);
+            margin: 10% auto;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #fff;
+        }
+
+        .modal h2 {
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #00d4ff, #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-subtitle {
+            color: #ccc;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .contact-info {
+            margin: 30px 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-right: 20px;
+        }
+
+        .contact-item h4 {
+            color: #00d4ff;
+            margin-bottom: 5px;
+            margin-top: 0;
+        }
+
+        .contact-item p {
+            color: #fff;
+            font-family: monospace;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .modal-footer {
+            text-align: center;
+            color: #ccc;
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .partnership-title {
+                font-size: 2rem;
+            }
+            
+            .partnership-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .integration-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .patent-notice {
+                position: static;
+                margin-top: 40px;
+                display: inline-block;
+            }
+        }
+    </style>
+    <script>
+        // Connect to your existing modal system
+        function openContactPopup() {
+            // Show the contact modal
+            var modal = document.getElementById('contactModal');
+            if (modal) {
+                modal.style.display = 'block';
+            } else {
+                // Fallback if modal not found
+                window.location.href = 'mailto:christopher@campbell-trading.com?subject=Partnership%20Inquiry%20-%20Sapient%20Trading%20Journal';
+            }
+        }
+
+        // Set up modal close functionality when page loads
+        window.addEventListener('DOMContentLoaded', function() {
+            var modal = document.getElementById('contactModal');
+            var span = document.getElementsByClassName('close')[0];
+            
+            // Close modal when clicking X
+            if (span) {
+                span.onclick = function() {
+                    modal.style.display = 'none';
+                }
+            }
+            
+            // Close modal when clicking outside
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <!-- Add this section to your existing pitch deck -->
+    <section class="partnership-slide">
+        <div class="partnership-content">
+            <h1 class="partnership-title">Partnership Opportunities</h1>
+            <p class="partnership-subtitle">Integrate the Sapient Trading Journal into Your Platform</p>
+            
+            <div class="integration-options">
+                <div class="integration-card">
+                    <div class="integration-icon">🔄</div>
+                    <h3 class="integration-title">Data Sync</h3>
+                    <p class="integration-time">1-2 weeks</p>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-icon">🧩</div>
+                    <h3 class="integration-title">Embedded Module</h3>
+                    <p class="integration-time">3-4 weeks</p>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-icon">🏷️</div>
+                    <h3 class="integration-title">White Label</h3>
+                    <p class="integration-time">4-6 weeks</p>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-icon">📜</div>
+                    <h3 class="integration-title">Licensed Method</h3>
+                    <p class="integration-time">2-3 weeks</p>
+                </div>
+            </div>
+            
+            <div class="cta-section">
+                <h2 class="cta-title">Ready to Enhance Your Trading Platform?</h2>
+                <p class="cta-text">
+                    The Sapient Trading Journal brings unique health metrics, emotional intelligence tracking, 
+                    and AI-ready data structures to your users.
+                </p>
+                <button onclick="openContactPopup()" class="contact-button">
+                    Discuss Integration Options
+                </button>
+            </div>
+        </div>
+        
+        <div class="patent-notice">Patent Pending</div>
+    </section>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Let's Connect</h2>
+            <p class="modal-subtitle">I'd love to discuss integration opportunities for the Sapient Trading Journal</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <div>
+                        <h4>Email</h4>
+                        <p>christopher@campbell-trading.com</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <span class="contact-icon">💬</span>
+                    <div>
+                        <h4>Discord</h4>
+                        <p>@campbell2165</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-icon">📅</span>
+                    <div>
+                        <h4>Schedule a Demo</h4>
+                        <p>I'll walk you through the integration options</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-icon">🛡️</span>
+                    <div>
+                        <h4>Patent Pending</h4>
+                        <p>Provisional filed July 2025</p>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="modal-footer">Looking forward to exploring partnership opportunities!</p>
+        </div>
+    </div>
+</body>
+</html>
+
+    <!-- Optional: Standalone partnership page intro -->
+    <section style="padding: 60px 20px; max-width: 800px; margin: 0 auto; display: none;">
+        <h1 style="color: #1a1a2e; margin-bottom: 30px;">Partner With Sapient Trading Journal</h1>
+        
+        <p style="font-size: 1.2rem; line-height: 1.8; color: #495057; margin-bottom: 30px;">
+            Thank you for your interest in integrating the Sapient Trading Journal into your platform. 
+            Our patent-pending technology offers unique capabilities that can enhance your users' trading performance.
+        </p>
+        
+        <div style="background: #f8f9fa; padding: 30px; border-radius: 12px; margin-bottom: 40px;">
+            <h3 style="color: #1a1a2e; margin-bottom: 20px;">Why Partner With Us?</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin-bottom: 15px; padding-left: 30px; position: relative;">
+                    <span style="position: absolute; left: 0;">✅</span>
+                    <strong>Unique Data:</strong> Health metrics & emotional intelligence tracking
+                </li>
+                <li style="margin-bottom: 15px; padding-left: 30px; position: relative;">
+                    <span style="position: absolute; left: 0;">✅</span>
+                    <strong>Proven Methodology:</strong> Two-phase trade capture system
+                </li>
+                <li style="margin-bottom: 15px; padding-left: 30px; position: relative;">
+                    <span style="position: absolute; left: 0;">✅</span>
+                    <strong>AI-Ready:</strong> Structured for advanced analytics
+                </li>
+                <li style="margin-bottom: 15px; padding-left: 30px; position: relative;">
+                    <span style="position: absolute; left: 0;">✅</span>
+                    <strong>Privacy-First:</strong> User-controlled data architecture
+                </li>
+            </ul>
+        </div>
+        
+        <p style="font-size: 1.1rem; color: #495057; text-align: center; margin-top: 30px;">
+            <button onclick="openContactPopup()" style="
+                padding: 12px 30px;
+                background: linear-gradient(45deg, #00d4ff, #0099ff);
+                color: white;
+                border: none;
+                border-radius: 25px;
+                font-size: 1.1rem;
+                font-weight: 600;
+                cursor: pointer;
+                box-shadow: 0 4px 15px rgba(0, 153, 255, 0.3);
+                transition: all 0.3s ease;
+            " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                Contact Us for Integration Details
+            </button>
+        </p>
+    </section>
+</body>
+</html>
