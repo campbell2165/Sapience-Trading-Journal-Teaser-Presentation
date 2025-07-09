@@ -439,6 +439,118 @@
             display: block;
             margin-bottom: 10px;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #0f1425 0%, #1a1f3a 100%);
+            margin: 10% auto;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #fff;
+        }
+
+        .modal h2 {
+            margin-bottom: 10px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .contact-info {
+            margin: 30px 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-right: 20px;
+        }
+
+        .contact-item h4 {
+            color: var(--accent-cyan);
+            margin-bottom: 5px;
+        }
+
+        .contact-item p {
+            color: var(--text-primary);
+            font-family: monospace;
+            font-size: 0.95rem;
+        }
+
+        .modal-footer {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
     </style>
 </head>
 <body>
@@ -653,10 +765,57 @@
         <div class="container">
             <h2>Let's Explore Where This Could Go</h2>
             <p style="font-size: 1.3rem; margin-bottom: 30px;">Would love your thoughts on the best path forward</p>
-            <a href="#" class="cta-button" onclick="alert('Message me on Discor @campbell2165 or send an email to christopher@campbell-trading.com'); return false;">Live Demo Ready</a>
+            <a href="#" class="cta-button" onclick="openModal(); return false;">Live Demo Ready</a>
             <p style="margin-top: 50px; color: var(--text-secondary);">Christopher Mayer (a.k.a. Campbell) • Sapient Trading Journal • 2025</p>
         </div>
     </section>
+
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Let's Connect</h2>
+            <p class="modal-subtitle">I'd love to show you a live demo of the Sapient Trading Journal</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <div>
+                        <h4>Email</h4>
+                        <p>campbell@campbell-trading.com</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <span class="contact-icon">💬</span>
+                    <div>
+                        <h4>Discord</h4>
+                        <p>@campbell2165</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-icon">📅</span>
+                    <div>
+                        <h4>Schedule a Demo</h4>
+                        <p>I'll walk you through the features personally</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-icon">🛡️</span>
+                    <div>
+                        <h4>Patent Pending</h4>
+                        <p>Provisional filed July 2025</p>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="modal-footer">Looking forward to discussing how this can transform trading performance!</p>
+        </div>
+    </div>
+
 
     <script>
         // Smooth scroll to sections
@@ -705,6 +864,26 @@
             el.style.transition = 'all 0.6s ease-out';
             observer.observe(el);
         });
+    
+        // Modal functions
+        function openModal() {
+            document.getElementById('contactModal').style.display = 'block';
+        }
+
+        // Close modal when clicking X
+        document.querySelector('.close').addEventListener('click', function() {
+            document.getElementById('contactModal').style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('contactModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        });
+    
     </script>
+
 </body>
 </html>
